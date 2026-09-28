@@ -1,19 +1,16 @@
 package br.com.etechoracio.ingresso.repository;
 
-import br.com.etechoracio.ingresso.dto.SalaResponseDTO;
-import br.com.etechoracio.ingresso.entity.Filme;
 import br.com.etechoracio.ingresso.entity.Sala;
-import br.com.etechoracio.ingresso.entity.Sessao;
-import br.com.etechoracio.ingresso.enums.SimNaoEnum;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 
+import javax.swing.text.html.Option;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
-public interface SalaRepository extends JpaRepository <Sala, Long> {
-    List<Sala> findByIdAndDataExclusaoIsNull(SimNaoEnum id);
+public interface SalaRepository extends JpaRepository<Sala, Long> {
 
-    @Query("SELECT s FROM Sala s WHERE s.dataExclusao IS NULL")
-     List<SalaResponseDTO> findAllSala(Long id);
+    List<Sala> findByDataExclusaoIsNull(LocalDateTime dataExclusao);
+
+    Optional<Sala> findByIdAndExclusaoIsNull(Long id);
 }
